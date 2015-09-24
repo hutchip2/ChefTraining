@@ -1,9 +1,15 @@
 require 'spec_helper'
 
 describe 'apache::default' do
-  # Serverspec examples can be found at
-  # http://serverspec.org/resource_types.html
-  it 'does something' do
-    skip 'Replace this with meaningful tests'
+ 
+  describe file('/var/www/html/index.html') do
+    it { should be_file }
+    it { should contain '<h1>Hello, world!</h1>' }
   end
+
+  describe service('apache2') do
+    it { should be_enabled }
+    it { should be_running }
+  end
+  
 end
